@@ -149,15 +149,13 @@ window.addEventListener("load", () => {
         let secondsPreGame = 5;
 
         let preGame = setInterval(() => {
-            if (secondsPreGame > 0) {
-                bigText.innerText = `The game will start on ${secondsPreGame}`;
-            }
-            else if (secondsPreGame == 0) {
-                bigText.innerText = 'GO!';
-            }
+            
+            bigText.innerText = secondsPreGame > 0 
+                ? `The game will start on ${secondsPreGame}`
+                : 'GO!';
+            
             if (secondsPreGame == -1) {
                 view.classList.remove("gettingReadyText");
-                bigText.innerText = "";
                 bigText.remove();
                 clearInterval(preGame);
             }
