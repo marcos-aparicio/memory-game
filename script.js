@@ -72,7 +72,7 @@ window.addEventListener("load", () => {
 
         gettingReady();
         //starting new game, will use a Tiemout so the GettingReady can be shown
-        setTimeout(() => { game(e, newDifficultyInput) }, 7000);
+        setTimeout(() => { game(e, newDifficultyInput) }, (secondsPreGame+2)*1000);
 
     });
 
@@ -87,8 +87,7 @@ window.addEventListener("load", () => {
         initialForm.style.display = "none";
         usernameRequirementsP.classList.add("d-none");
 
-        gettingReady();
-        setTimeout(() => { game(e, firstDifficultyInput) }, 7000);
+        gettingReady(); //then inside it executes the game function
 
         e.preventDefault();//This line is used for avoiding errors on the eventlistener
         
@@ -138,7 +137,8 @@ window.addEventListener("load", () => {
     }
 
     /**
-     * Little text display so the user can prepare for the game. ACLARATION: IT WILL TAKE MORE SECONDS THAN IT SAYS
+     * Little text display so the user can prepare for the game.
+     * 
      */
     function gettingReady() {
         //Creating the element and assigning classes for proper styling
@@ -146,7 +146,7 @@ window.addEventListener("load", () => {
         view.classList.add("gettingReadyText");
         view.append(bigText);//Adding the element to the page
 
-        let secondsPreGame = 5;
+        let secondsPreGame = 3;
 
         let preGame = setInterval(() => {
             
@@ -158,6 +158,8 @@ window.addEventListener("load", () => {
                 view.classList.remove("gettingReadyText");
                 bigText.remove();
                 clearInterval(preGame);
+
+                game(e, firstDifficultyInput);
             }
             secondsPreGame -= 1;
         }, 1000);
@@ -172,9 +174,11 @@ window.addEventListener("load", () => {
         let memoryGame = document.createElement("section");
         view.appendChild(memoryGame);
         memoryGame.setAttribute("id", "memoryGame");
+   
         //Styles of the Memory Box Grid
         memoryGame.classList.add("memoryGame")
         memoryGame.classList.add(tilesClass);
+   
         //Creating Tiles
         for (let a = 0; a < boxesNumber; a++) {
             //Creating the box itself and assigning a class to it
@@ -297,7 +301,6 @@ window.addEventListener("load", () => {
                 whenClick(e, tiles); // If i don't create the arrow function it won't work because it will try load the function at the beginning resulting in type errors
             });
         }
-        e.preventDefault(); //to avoid errors
     }
 
     /**
