@@ -1,0 +1,483 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+/* Changing some styles from certain tags */
+button {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+input, select {
+    border: none;
+    outline: none;
+    color: white;
+}
+
+input::placeholder {
+    color: white;
+}
+
+input:active {
+    border: 3px solid white;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+
+    /* I use a background generator for this styles */
+    /* Source: https://cssgradient.io/ */
+    background: rgb(131, 58, 180);
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 57%, rgba(252, 173, 69, 1) 81%);
+}
+
+
+/* Header */
+.page-title, .page-title h1 {
+    color: white;
+    font-size: 8rem;
+    font-weight: bold;
+}
+
+/* Main */
+.view {
+    padding: 0 250px;
+    min-height: 74vh;
+}
+
+.web-description {
+    font-weight: 500;
+    color: white;
+    font-size: 2.1rem;
+}
+
+/* Styles for the text that shows the user conditions */
+#usernameRequirementsP {
+    height: 70px;
+    width: 100%;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+
+/* Form */
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for the username input */
+.input {
+    font-size: 2.1rem;
+    font-weight: 500;
+    background: none;
+    color: white;
+    border: white 3px solid;
+    border-radius: 3px;
+    margin: 20px 0;
+    padding: 5px;
+}
+
+/* Styles for the select the game difficulty */
+.selection {
+    background: transparent
+}
+
+.selection option {
+    color: black;
+}
+
+/* Style for the container of the submit button */
+.submit-background {
+    margin-top: 40px;
+    background: white;
+    border-radius: 15px;
+}
+
+/* Styles for the submit tag itself */
+.submit {
+    padding: 15px;
+    font-size: 3.1rem;
+    font-weight: bold;
+    /* Styles for creating a linear gradient color on the text */
+    /*For this color of text I used a generator*/
+    /*Source: https://textgradients.com/*/
+    background: #ff0000;
+    background: -webkit-linear-gradient(to left, #ff0000, #9932cc);
+    background: linear-gradient(to left, #ff0000, #9932cc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Editing pseudo classes on submit */
+.submit-background:hover {
+    background: none;
+}
+
+.submit-background:hover>.submit {
+    color: white;
+}
+
+
+/* Footer */
+.footerPart {
+    font-weight: 500;
+    color: white;
+    font-size: 2.1rem;
+}
+
+
+/* Game styles */
+
+/* The Layout for the Grid */
+.memoryGame {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    grid-gap: 10px;
+}
+
+/* Style of each icon on each tile */
+.logos {
+    font-size: 35px;
+    margin: auto;
+}
+
+/* Styles for each tile of the memory game */
+.tiles {
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+}
+
+/* Styles for avoiding bugs on the game, DO NOT ALLOW MATCHED TILES TO BE CLICKED, ETC */
+.unclickeable, .unclickeable svg, .unclickeable path, .matched {
+    cursor: context-menu;
+    pointer-events: none;
+}
+
+/* Styles for the text shown before the game starts and after submiting the form */
+.gettingReadyText {
+    font-size: 5rem;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+    align-items: center;
+
+}
+
+/* Layout for showing the time, the username and the help button */
+.extraInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px;
+    color: white;
+    font-size: 2.5rem;
+
+}
+
+
+/* Modals styles */
+.modal-howTo h3, .modal-afterGame h3 {
+    font-size: 3.1rem;
+}
+
+.modal-howTo p, .modal-afterGame p {
+    font-size: 2.1rem;
+    font-weight: 500;
+}
+
+.modal-afterGame .aclaration {
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+.modal-howTo-button {
+    border: none;
+    padding: 10px 30px;
+    font-size: 2.1rem;
+    border-radius: 15px;
+    font-weight: 500;
+    color: white;
+    /* I use a background generator for this styles */
+    /* Source: https://cssgradient.io/ */
+    background: rgb(153, 50, 204);
+    background: linear-gradient(90deg, rgba(153, 50, 204, 1) 0%, rgba(255, 0, 0, 1) 100%);
+}
+
+.modal-howTo article, .modal-afterGame article {
+    background: white;
+}
+
+.modal-howTo p, .modal-howTo h3, .modal-afterGame p, .modal-afterGame h3 {
+    /*For this color of text I used a generator*/
+    /*Source: https://textgradients.com/*/
+    background: #ff0000;
+    background: -webkit-linear-gradient(to left, #ff0000, #9932cc);
+    background: linear-gradient(to left, #ff0000, #9932cc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.modal-howTo figure img {
+    border-radius: 15px;
+}
+
+.modal-afterGame select {
+    font-size: 2.1rem;
+    color: black;
+}
+
+.modal-afterGame button {
+    background: rgb(153, 50, 204);
+    background: linear-gradient(90deg, rgba(153, 50, 204, 1) 0%, rgba(255, 0, 0, 1) 100%);
+    color: white;
+    font-size: 2.1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 0 20px;
+    border: none;
+    outline: none;
+}
+
+
+
+/* ANIMATIONS: KEYFRAMES AND ANIMATION CLASSES */
+.wrongMatch-Animation {
+    animation-name: wrongMatch;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.52, .6, .54, .64);
+}
+
+.goodMatch-Animation {
+    animation-name: goodMatch;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.52, .6, .54, .64);
+}
+
+@keyframes wrongMatch {
+    from {
+        transform: scale(1)
+    }
+
+    to {
+        transform: scale(1.1);
+        background-color: red;
+    }
+}
+
+@keyframes goodMatch {
+    0% {
+        transform: scale(1);
+    }
+
+    80% {
+        transform: scale(1.1);
+        background: rgba(63, 255, 105, 1);
+    }
+}
+
+/* Styles for the memory game's dimensions and layout depending on the difficulty */
+.easyTiles {
+    grid-template-rows: repeat(4, 80px);
+    ;
+    grid-template-columns: repeat(4, 80px);
+
+}
+
+.mediumTiles {
+    grid-template-rows: repeat(4, 80px);
+    grid-template-columns: repeat(6, 80px);
+}
+
+.hardTiles {
+    grid-template-rows: repeat(6, 60px);
+    grid-template-columns: repeat(6, 60px);
+}
+
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width:1200px) {
+    #usernameRequirementsP {
+        font-size: 1.8rem;
+    }
+
+    .submit {
+        font-size: 2.6rem;
+    }
+
+    .web-description {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .view {
+        padding: 0 150px;
+    }
+
+    .input, .web-description {
+        font-size: 1.8rem;
+    }
+
+    .submit {
+        font-size: 2.1rem;
+    }
+
+    .modal-howTo figure img {
+        height: 150px;
+        object-fit: contain;
+    }
+
+    .modal-howTo p {
+        font-size: 1.8rem;
+    }
+
+}
+
+@media screen and (max-width:768px) {
+
+    .view {
+        padding: 0 50px;
+        height: 78vh;
+    }
+
+    .page-title, .page-title h1 {
+        font-size: 6rem;
+    }
+
+    .copyright {
+        font-size: 1.5rem;
+    }
+
+    .easyTiles {
+        grid-template-rows: repeat(4, 75px);
+        ;
+        grid-template-columns: repeat(4, 75px);
+
+    }
+
+    .mediumTiles {
+        grid-template-rows: repeat(4, 70px);
+        grid-template-columns: repeat(6, 70px);
+    }
+}
+
+@media screen and (max-width:576px) {
+    .view {
+        height: 80vh;
+    }
+
+    .page-title, .page-title h1 {
+        font-size: 5rem;
+    }
+
+    #usernameRequirementsP {
+        font-size: 1.5rem;
+    }
+
+    .input, .web-description {
+        font-size: 1.5rem;
+    }
+
+    .extraInfo {
+        font-size: 1.8rem;
+    }
+
+    .gettingReadyText {
+        font-size: 3.1rem;
+    }
+
+    .modal-howTo figure img {
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .modal-howTo h3 {
+        font-size: 2.8rem;
+    }
+
+    .modal-howTo p {
+        font-size: 1.6rem;
+    }
+
+    .mediumTiles {
+        grid-template-rows: repeat(4, 60px);
+        grid-template-columns: repeat(6, 60px);
+    }
+
+    .hardTiles {
+        grid-template-rows: repeat(6, 50px);
+        grid-template-columns: repeat(6, 50px);
+    }
+
+}
+
+@media screen and (max-width:460px) {
+    .view {
+        padding: 0 10px;
+        height: 82vh;
+    }
+
+    .page-title, .page-title h1 {
+        font-size: 3.9rem;
+    }
+
+    #usernameRequirementsP {
+        font-size: 1.3rem;
+    }
+
+    .modal-afterGame button, .modal-afterGame select {
+        font-size: 1.6rem;
+    }
+
+    .easyTiles {
+        grid-template-rows: repeat(4, 65px);
+        ;
+        grid-template-columns: repeat(4, 65px);
+
+    }
+
+    .mediumTiles {
+        grid-template-rows: repeat(4, 50px);
+        grid-template-columns: repeat(6, 50px);
+    }
+
+    .hardTiles {
+        grid-template-rows: repeat(6, 40px);
+        grid-template-columns: repeat(6, 40px);
+    }
+
+}
+
+@media screen and (max-width:380px) {
+    .page-title, .page-title h1 {
+        font-size: 3rem;
+    }
+
+    .input, .web-description {
+        font-size: 1.3rem;
+    }
+
+    .mediumTiles {
+        grid-template-rows: repeat(4, 40px);
+        grid-template-columns: repeat(6, 40px);
+    }
+}
