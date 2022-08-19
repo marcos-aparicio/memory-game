@@ -371,16 +371,18 @@ window.addEventListener("load", () => {
         if (previousTile != undefined && (e.target.parentNode == previousTile.target || e.target == previousTile.target || e.target.parentNode.parentNode == previousTile.target)) {
             return;
         }
-        else {
-            e.target.firstChild.style.display = "block";
-            matchLogos(e, previousTile, tileNodeList);
-            if (previousTile == undefined) {
-                previousTile = e;
-            }
-            else {
-                previousTile = undefined;
-            }
+        
+        e.target.firstChild.style.display = "block";
+        matchLogos(e, previousTile, tileNodeList);
+        
+        if (previousTile == undefined) {
+            previousTile = e;
+            return;
         }
+        
+        previousTile = undefined;
+        
+        
 
     }
 
