@@ -328,29 +328,31 @@ window.addEventListener("load", () => {
         if (win || pause) {
             clearInterval(counting);
         }
-        else if (minutes >= 0) {
-            if (seconds >= 0) {
-                if (seconds == 0 && minutes > 0) {
-                    seconds = 59;
-                    minutes -= 1;
-                    cronometer.innerText = `Time ${minutes}:${seconds}`;
-                }
-                else if (seconds < 10) {
-                    cronometer.innerText = `Time: ${minutes}:0${seconds}`;
-                }
-                else {
-                    cronometer.innerText = `Time ${minutes}:${seconds}`;
-                }
-            }
-            if (seconds == 0 && minutes == 0) {
-                clearInterval(counting);
-                if (!win) {
-                    lose();
-                }
-
-            }
-            seconds -= 1;
+        if (seconds < 0) return;
+        
+        if (seconds == 0 && minutes > 0) {
+            seconds = 59;
+            minutes -= 1;
+            cronometer.innerText = `Time ${minutes}:${seconds}`;
+            return;
         }
+        if (seconds == 0 && minutes == 0) {
+            clearInterval(counting);
+            if (!win) lose();
+
+        }
+        
+        if (seconds < 10) {
+            cronometer.innerText = `Time: ${minutes}:0${seconds}`;
+            seconds--;
+            return;
+        }
+        
+        cronometer.innerText = `Time ${minutes}:${seconds}`;
+        
+    
+        console.log(seconds);
+        seconds -= 1;
 
 
     }
@@ -389,14 +391,14 @@ window.addEventListener("load", () => {
      * Return will only be used to finish executing this function 
      */
     function matchLogos(currentClick, previousClick, tileNodeList) {
-        if (previousClick == undefined) {
-            return
-        }
+        if (previousClick == undefined) return
+        
         //Conditional for both current and previous Click targets are similar
-        else if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value && previousClick.target.firstChild.classList != currentClick.target.firstChild.classList) {
+        if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value && previousClick.target.firstChild.classList != currentClick.target.firstChild.classList) {
+            
             currentClick.target.firstChild.style.display = "block";
-            guessedIcons.push(previousClick.target);
-            guessedIcons.push(currentClick.target);
+            guessedIcons.push(previousClick.target, currentClick.target);
+            
             previousClick.target.classList.add("matched");
             currentClick.target.classList.add("matched");
 
@@ -405,32 +407,26 @@ window.addEventListener("load", () => {
 
 
             //To know if you won
-            if (guessedIcons.length == tileNodeList.length) {
-                win = true;
-                victory();
-            }
+            if (guessedIcons.length == tileNodeList.length) victory();
+
+            return;
         }
         //Conditional when the previous and current click targets are not similar logos
-        else {
-            for (let b = 0; b < tileNodeList.length; b++) {
-                tileNodeList[b].classList.add("unclickeable");
+        for (let b = 0; b < tileNodeList.length; b++)   tileNodeList[b].classList.add("unclickeable");
+        
+        previousClick.target.classList.add("wrongMatch-Animation");
+        currentClick.target.classList.add("wrongMatch-Animation");
+        
+        setTimeout(() => {
+            for (let b = 0; b < tileNodeList.length; b++)   tileNodeList[b].classList.remove("unclickeable");
+
+            if (!previousClick.target.classList.contains("unclickeable")) {
+                previousClick.target.firstChild.style.display = "none";
             }
-            previousClick.target.classList.add("wrongMatch-Animation");
-            currentClick.target.classList.add("wrongMatch-Animation");
-            setTimeout(() => {
-                for (let b = 0; b < tileNodeList.length; b++) {
-                    tileNodeList[b].classList.remove("unclickeable");
-
-                }
-                if (!previousClick.target.classList.contains("unclickeable")) {
-                    previousClick.target.firstChild.style.display = "none";
-                }
-                currentClick.target.firstChild.style.display = "none";
-                previousClick.target.classList.remove("wrongMatch-Animation");
-                currentClick.target.classList.remove("wrongMatch-Animation");
-            }, 500);
-
-        }
+            currentClick.target.firstChild.style.display = "none";
+            previousClick.target.classList.remove("wrongMatch-Animation");
+            currentClick.target.classList.remove("wrongMatch-Animation");
+        }, 500);
 
     }
 
@@ -457,6 +453,7 @@ window.addEventListener("load", () => {
      * 
      */
     function victory() {
+        win = true;
         wins += 1;
         textAfterGame.innerHTML = `Congratulations ${username}!<br>You won!`;
 
