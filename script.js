@@ -60,7 +60,7 @@ window.addEventListener("load", () => {
      * EVENT LISTENERS
      * 
      */
-    playAgainButton.addEventListener("click", function gameAgain(e) { //this function will be used to re play after the first game
+    playAgainButton.onclick = function gameAgain(e) { //this function will be used to re play after the first game
 
         //removing the first game space
         let memoryGame = document.getElementById("memoryGame");
@@ -74,7 +74,7 @@ window.addEventListener("load", () => {
         //starting new game, will use a Tiemout so the GettingReady can be shown
         setTimeout(() => { game(e, newDifficultyInput) }, (secondsPreGame+2)*1000);
 
-    });
+    };
 
     //This eventListener will be used for playing for the first time after submiting the initial form
     initialForm.addEventListener("submit", (e) => {
@@ -217,7 +217,7 @@ window.addEventListener("load", () => {
             iconsOnGame.push(randomNumber);
 
 
-            memoryGame.appendChild(tile);//
+            memoryGame.appendChild(tile);
         }
     }
 
@@ -289,9 +289,8 @@ window.addEventListener("load", () => {
 
         //Adding the events to the tiles,this is the game itself
         let tiles = document.querySelectorAll(".tiles");
-        for (let a = 0; a < tiles.length; a++) {
-            tiles[a].onclick = (e) => whenClick(e,tiles);
-        }
+        for (let a = 0; a < tiles.length; a++) tiles[a].onclick = (e) => whenClick(e,tiles);
+        
     }
 
     /**
@@ -306,17 +305,17 @@ window.addEventListener("load", () => {
 
         cronometerContainer.setAttribute("id", "cronometer")
         cronometerContainer.classList.add("time");
-        if (seconds < 10) {
-            cronometer.innerText = `Time: ${minutes}:0${seconds}`;
-        }
-        else {
-            cronometer.innerText = `Time ${minutes}:${seconds}`;
-        }
+        
+        cronometer.innerText = seconds < 10 
+                            ? `Time: ${minutes}:0${seconds}`
+                            : `Time ${minutes}:${seconds}`;
+
+
         cronometerContainer.append(cronometer);
         extraInfoContainer.append(cronometerContainer);
         cronometerContainer.style.gridColumn = "0/1";
+        
         counting = setInterval(timing, 1000);//establish the interval for the timing
-
 
     }
 
@@ -382,8 +381,6 @@ window.addEventListener("load", () => {
         
         previousTile = undefined;
         
-        
-
     }
 
 
