@@ -159,7 +159,7 @@ window.addEventListener("load", () => {
                 bigText.remove();
                 clearInterval(preGame);
 
-                game(e, firstDifficultyInput);
+                game(e, firstDifficultyInput); // all the game is here
             }
             secondsPreGame -= 1;
         }, 1000);
@@ -171,25 +171,24 @@ window.addEventListener("load", () => {
     function buildTiles() {
 
         //Creating and placing the tag into the HTML document
-        let memoryGame = document.createElement("section");
+        let memoryGame = document.createElement("section")
         view.appendChild(memoryGame);
         memoryGame.setAttribute("id", "memoryGame");
+
    
         //Styles of the Memory Box Grid
-        memoryGame.classList.add("memoryGame")
-        memoryGame.classList.add(tilesClass);
+        memoryGame.classList.add("memoryGame",tilesClass);
    
         //Creating Tiles
         for (let a = 0; a < boxesNumber; a++) {
             //Creating the box itself and assigning a class to it
-            let tile = document.createElement("div");
+            let tile = document.createElement("div")
             tile.setAttribute("class", "tiles");
 
             //Creating the logos behind each block
-            let figure = document.createElement("i");
-            figure.setAttribute("class", "fa fa-brands");
+            let figure = document.createElement("i")
+            figure.classList.add("logos","fa","fa-brands");
             figure.style.display = "none";
-            figure.classList.add("logos");
 
             //Algorithm to asign different logos to each tile based on numbers that will be associated to an array to get the logos
 
@@ -198,8 +197,8 @@ window.addEventListener("load", () => {
             let randomNumber = parseInt(Math.random() * (logos));
 
             if (iconsOnGame.includes(randomNumber) && iconsOnGame.length < logos * 3) {
+                
                 // variable y is created to know if a number was already twice on the game, and since each number should only be twice if that happens it allows to change the number to another one that is not in the game twice yet.
-
                 let y = boxesNumber * randomNumber + boxesNumber;
                 if (iconsOnGame.includes(y)) {
                     while (iconsOnGame.includes(y)) {
@@ -230,8 +229,7 @@ window.addEventListener("load", () => {
         view.append(extraInfoContainer);
         let extraInfo = document.createElement("article");
         extraInfo.setAttribute("id", "extraInfo");
-        extraInfo.classList.add("d-flex");//Styles for bootstrap
-        extraInfo.classList.add("order-2");
+        extraInfo.classList.add("d-flex","order-2");//Styles for bootstrap
 
         //Creating the modal button, assigning it no styles
         let helpButton = document.createElement("button")
@@ -240,32 +238,27 @@ window.addEventListener("load", () => {
 
         //Creating the <i> tag and assigning the classes so it's a help button
         let helpIcon = document.createElement("i");
-        helpIcon.classList.add("fa-solid");
-        helpIcon.classList.add("fa-circle-question");
-        helpIcon.style.color = "white";
-        helpIcon.style.marginTop = "0";
+        helpIcon.classList.add("fa-solid","fa-circle-question");
+        helpIcon.style = "color: white; margin-top:0";
 
         //Creating the user part of the extra information section
         let userText = document.createElement("p");
         userText.innerText = `Player: ${username}`;
-        userText.style.marginRight = "20px";
-        extraInfo.style.justifySelf = "right";
-        extraInfo.style.justifyContent = "flex-start";
+        userText.style = "margin-right: 20px; justify-self:right; justify-content:flex-start";
 
         //Appending Process
         helpButton.append(helpIcon);
-        extraInfo.append(userText);
-        extraInfo.append(helpButton);
+        extraInfo.append(userText,helpButton);
 
         //Positioning the extraInfo within the extraInfo Container
         extraInfoContainer.append(extraInfo);
         extraInfo.style.gridColumn = "0 span 1";
 
         //Event Listener for the help Button
-        helpButton.addEventListener("click", () => {
+        helpButton.onclick = ()=>{
             howToModalB.show();
-            pause = true;//this will make the timer stops when clicking the help button
-        })
+            pause = true; //this will make the timer stops when clicking the help button
+        }
 
 
     }
@@ -297,9 +290,7 @@ window.addEventListener("load", () => {
         //Adding the events to the tiles,this is the game itself
         let tiles = document.querySelectorAll(".tiles");
         for (let a = 0; a < tiles.length; a++) {
-            tiles[a].addEventListener("click", (e) => {
-                whenClick(e, tiles); // If i don't create the arrow function it won't work because it will try load the function at the beginning resulting in type errors
-            });
+            tiles[a].onclick = (e) => whenClick(e,tiles);
         }
     }
 
