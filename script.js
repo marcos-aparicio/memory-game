@@ -328,30 +328,25 @@ window.addEventListener("load", () => {
         if (win || pause) {
             clearInterval(counting);
         }
+        
         if (seconds < 0) return;
         
         if (seconds == 0 && minutes > 0) {
             seconds = 59;
             minutes -= 1;
-            cronometer.innerText = `Time ${minutes}:${seconds}`;
-            return;
         }
-        if (seconds == 0 && minutes == 0) {
+        else if (seconds == 0 && minutes == 0) {
             clearInterval(counting);
             if (!win) lose();
 
         }
         
-        if (seconds < 10) {
-            cronometer.innerText = `Time: ${minutes}:0${seconds}`;
-            seconds--;
-            return;
-        }
         
-        cronometer.innerText = `Time ${minutes}:${seconds}`;
+        cronometer.innerText = seconds < 10
+                            ? `Time ${minutes}:0${seconds}`
+                            : `Time ${minutes}:${seconds}`;
         
     
-        console.log(seconds);
         seconds -= 1;
 
 
