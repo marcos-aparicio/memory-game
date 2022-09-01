@@ -38,7 +38,6 @@ window.addEventListener("load", () => {
     let time;
     //Arrays for saving the icons on the game
     let guessedIcons = [];//Within the game
-    let iconsOnGame = []; //When created
 
     let savedDifficulty;//difficulty saved after playing the game one time
     let win = false;
@@ -70,9 +69,7 @@ window.addEventListener("load", () => {
         cronometerContainer.remove();
         extraInfo.remove();
 
-        gettingReady();
-        //starting new game, will use a Tiemout so the GettingReady can be shown
-        setTimeout(() => { game(e, newDifficultyInput) }, (secondsPreGame+2)*1000);
+        gettingReady(newDifficultyInput.value);
 
     };
 
@@ -87,7 +84,7 @@ window.addEventListener("load", () => {
         initialForm.style.display = "none";
         usernameRequirementsP.classList.add("d-none");
 
-        gettingReady(); //then inside it executes the game function
+        gettingReady(firstDifficultyInput.value); //then inside it executes the game function
 
         e.preventDefault();//This line is used for avoiding errors on the eventlistener
         
@@ -115,7 +112,19 @@ window.addEventListener("load", () => {
      * Changing important variables to set up the game based on the difficulty
      * 
      */
-    function difficultyAdjustments(difficulty) {
+
+
+    /**
+     * Little text display so the user can prepare for the game.
+     * 
+     */
+    function gettingReady(difficulty) {
+        //Creating the element and assigning classes for proper styling
+        let bigText = document.createElement("p");
+        view.classList.add("gettingReadyText");
+        view.append(bigText);//Adding the element to the page
+
+        //Asigning difficult adjustments
         if (difficulty == "") {
             difficulty = savedDifficulty;
         }
@@ -131,20 +140,10 @@ window.addEventListener("load", () => {
         boxesNumber = difficultySettings[difficulty][0];
         time = difficultySettings[difficulty][1];
         tilesClass = difficultySettings[difficulty][2];
-        
         savedDifficulty = difficulty;
 
-    }
+        
 
-    /**
-     * Little text display so the user can prepare for the game.
-     * 
-     */
-    function gettingReady() {
-        //Creating the element and assigning classes for proper styling
-        let bigText = document.createElement("p");
-        view.classList.add("gettingReadyText");
-        view.append(bigText);//Adding the element to the page
 
         let secondsPreGame = 3;
 
@@ -159,7 +158,7 @@ window.addEventListener("load", () => {
                 bigText.remove();
                 clearInterval(preGame);
 
-                game(e, firstDifficultyInput); // all the game is here
+                game(e); // all the game is here
             }
             secondsPreGame -= 1;
         }, 1000);
@@ -183,7 +182,9 @@ window.addEventListener("load", () => {
         let logos = boxesNumber / 2;
         halfTiles = Array.apply(null,{length: logos}).map(Number.call, Number);
         
-        iconsOnGame = halfTiles.concat(halfTiles);
+        
+        let iconsOnGame = halfTiles.concat(halfTiles); //array of numbers representing the icons
+        
         //Algoritm for shuffling the array of icons
         for (let i = iconsOnGame.length - 1; i > 0; i--){
                 let j = Math.floor(Math.random() * (i+1));
@@ -260,16 +261,13 @@ window.addEventListener("load", () => {
      * COLLECTS ALL THE OTHER FUNCTIONS SO THE GAME WORKS
      * 
      */
-    function game(e, difficultyInput) {
+    function game() {
         //clearing the variables so the game can start
-        iconsOnGame = [];
         win = false;
         pause = false;
         guessedIcons = [];
 
-        //Pregame        
-        difficultyAdjustments(difficultyInput.value);
-        
+     
         extraInformation();
         creatingCronometer();
         buildTiles();
