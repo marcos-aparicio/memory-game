@@ -190,13 +190,6 @@ window.addEventListener("load", () => {
                 [iconsOnGame[j],iconsOnGame[i]] = [iconsOnGame[i],iconsOnGame[j]];
         }
                 
-        // ANOTHER OPTION
-        // for(let i = iconsOnGame.length - 1; i > 0; i--){
-        //     let j = Math.floor(Math.random() * (i+1));
-        //     let temp = iconsOnGame[j];
-        //     iconsOnGame[j] = iconsOnGame[i];
-        //     iconsOnGame[i] = temp;
-        // }
 
         //Creating Tiles
         for (let a = 0; a < boxesNumber; a++) {
@@ -358,7 +351,7 @@ window.addEventListener("load", () => {
         if (guessedIcons.includes(e.target.parentNode.parentNode) || guessedIcons.includes(e.target)) {
             return
         }
-        //this condition will be used for avoiding bus when clicking the same elemnent
+        //this condition will be used for avoiding bugs when clicking the same elemnent
         if (previousTile != undefined && (e.target.parentNode == previousTile.target || e.target == previousTile.target || e.target.parentNode.parentNode == previousTile.target)) {
             return;
         }
@@ -366,7 +359,7 @@ window.addEventListener("load", () => {
         e.target.firstChild.style.display = "block";
         matchLogos(e, previousTile, tileNodeList);
         
-        previousTile = previousTile == undefined
+        previousTile = (previousTile == undefined)
                     ? e
                     : undefined;
         
@@ -380,6 +373,7 @@ window.addEventListener("load", () => {
     function matchLogos(currentClick, previousClick, tileNodeList) {
         if (previousClick == undefined) return
         
+        
         //Conditional for both current and previous Click targets are similar
         if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value 
             && previousClick.target.firstChild.classList != currentClick.target.firstChild.classList) {
@@ -387,12 +381,8 @@ window.addEventListener("load", () => {
             currentClick.target.firstChild.style.display = "block";
             guessedIcons.push(previousClick.target, currentClick.target);
             
-            previousClick.target.classList.add("matched");
-            currentClick.target.classList.add("matched");
-
-            currentClick.target.classList.add("goodMatch-Animation");
-            previousClick.target.classList.add("goodMatch-Animation");
-
+            previousClick.target.classList.add("matched","goodMatch-Animation");
+            currentClick.target.classList.add("matched","goodMatch-Animation");
 
             //To know if you won
             if (guessedIcons.length == tileNodeList.length) victory();
@@ -401,18 +391,17 @@ window.addEventListener("load", () => {
         }
         //Conditional when the previous and current click targets are not similar logos
         
-        for (let b = 0; b < tileNodeList.length; b++)   tileNodeList[b].classList.add("unclickeable");
+        document.getElementById("memoryGame").classList.add("unclickeable");
         
         previousClick.target.classList.add("wrongMatch-Animation");
         currentClick.target.classList.add("wrongMatch-Animation");
         
         setTimeout(() => {
-            for (let b = 0; b < tileNodeList.length; b++)   tileNodeList[b].classList.remove("unclickeable");
+            document.getElementById("memoryGame").classList.remove("unclickeable");
 
-            if (!previousClick.target.classList.contains("unclickeable")) {
-                previousClick.target.firstChild.style.display = "none";
-            }
+            previousClick.target.firstChild.style.display = "none";
             currentClick.target.firstChild.style.display = "none";
+            
             previousClick.target.classList.remove("wrongMatch-Animation");
             currentClick.target.classList.remove("wrongMatch-Animation");
         }, 500);

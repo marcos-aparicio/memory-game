@@ -165,7 +165,7 @@ body {
 }
 
 /* Styles for avoiding bugs on the game, DO NOT ALLOW MATCHED TILES TO BE CLICKED, ETC */
-.unclickeable, .unclickeable svg, .unclickeable path, .matched {
+.unclickeable, .unclickeable svg, .unclickeable path, .matched{
     cursor: context-menu;
     pointer-events: none;
 }
