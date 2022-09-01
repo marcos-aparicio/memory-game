@@ -178,7 +178,26 @@ window.addEventListener("load", () => {
    
         //Styles of the Memory Box Grid
         memoryGame.classList.add("memoryGame",tilesClass);
-   
+
+        //Randomizing logos' positioning
+        let logos = boxesNumber / 2;
+        halfTiles = Array.apply(null,{length: logos}).map(Number.call, Number);
+        
+        iconsOnGame = halfTiles.concat(halfTiles);
+        //Algoritm for shuffling the array of icons
+        for (let i = iconsOnGame.length - 1; i > 0; i--){
+                let j = Math.floor(Math.random() * (i+1));
+                [iconsOnGame[j],iconsOnGame[i]] = [iconsOnGame[i],iconsOnGame[j]];
+        }
+                
+        // ANOTHER OPTION
+        // for(let i = iconsOnGame.length - 1; i > 0; i--){
+        //     let j = Math.floor(Math.random() * (i+1));
+        //     let temp = iconsOnGame[j];
+        //     iconsOnGame[j] = iconsOnGame[i];
+        //     iconsOnGame[i] = temp;
+        // }
+
         //Creating Tiles
         for (let a = 0; a < boxesNumber; a++) {
             //Creating the box itself and assigning a class to it
@@ -190,33 +209,9 @@ window.addEventListener("load", () => {
             figure.classList.add("logos","fa","fa-brands");
             figure.style.display = "none";
 
-            //Algorithm to asign different logos to each tile based on numbers that will be associated to an array to get the logos
-
-            //The number of logos is the half of the number of boxes
-            let logos = boxesNumber / 2;
-            let randomNumber = parseInt(Math.random() * (logos));
-
-            if (iconsOnGame.includes(randomNumber) && iconsOnGame.length < logos * 3) {
-                
-                // variable y is created to know if a number was already twice on the game, and since each number should only be twice if that happens it allows to change the number to another one that is not in the game twice yet.
-                let y = boxesNumber * randomNumber + boxesNumber;
-                if (iconsOnGame.includes(y)) {
-                    while (iconsOnGame.includes(y)) {
-                        randomNumber = parseInt(Math.random() * (logos));
-                        y = randomNumber * boxesNumber + boxesNumber;
-                    }
-                }
-                if (iconsOnGame.includes(randomNumber)) {
-                    iconsOnGame.push(y);
-                }
-            }
-
             //Code to add the hidden logo to the game
             tile.appendChild(figure);
-            figure.classList.add(figures[randomNumber]);
-            iconsOnGame.push(randomNumber);
-
-
+            figure.classList.add(figures[iconsOnGame[a]]);
             memoryGame.appendChild(tile);
         }
     }
@@ -386,7 +381,8 @@ window.addEventListener("load", () => {
         if (previousClick == undefined) return
         
         //Conditional for both current and previous Click targets are similar
-        if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value && previousClick.target.firstChild.classList != currentClick.target.firstChild.classList) {
+        if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value 
+            && previousClick.target.firstChild.classList != currentClick.target.firstChild.classList) {
             
             currentClick.target.firstChild.style.display = "block";
             guessedIcons.push(previousClick.target, currentClick.target);
@@ -404,6 +400,7 @@ window.addEventListener("load", () => {
             return;
         }
         //Conditional when the previous and current click targets are not similar logos
+        
         for (let b = 0; b < tileNodeList.length; b++)   tileNodeList[b].classList.add("unclickeable");
         
         previousClick.target.classList.add("wrongMatch-Animation");
