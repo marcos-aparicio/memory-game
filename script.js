@@ -10,19 +10,14 @@ window.addEventListener("load", () => {
 
 
     //Other  elements    
+
     const view = document.getElementById("view"); //Main tag that will have all the magic :)
     const initialForm = document.forms.initialForm; //Accesing the form tag
     const firstDifficultyInput = initialForm[0]; //Accesing the select difficulty tag
     const descriptions = document.querySelectorAll(".description");
-    const usernameRequirementsP = document.getElementById("usernameRequirementsP"); // Here will be written the message for the users
     const extraInfoContainer = document.createElement("section"); //Creating a section that will contain the extra info shown when playing
     extraInfoContainer.classList.add("extraInfo"); //Adding the proper class so it will have proper styles
     const textAfterGame = document.getElementById("textAfterGame"); //Text that will show alert if the player win or lose
-    const playAgainButton = document.getElementById("playAgain"); //Button to play again, will be shown after finishing a game
-    const newDifficultyInput = document.getElementById("afterGameSubmit") //Select tag on the after game modal to select a new difficulty for another game
-    //Paragraphs to show the number of losses and wins
-    const lossesInfo = document.getElementById("losses");
-    const winsInfo = document.getElementById("wins");
     //Elements on the Cronometer section on the game
     let cronometerContainer = document.createElement("div");
     let cronometer = document.createElement("p");
@@ -34,17 +29,17 @@ window.addEventListener("load", () => {
      */
     const figures = ["fa-linux", "fa-ubuntu", "fa-github-alt", "fa-python", "fa-apple", "fa-centos", "fa-windows", "fa-gitlab", "fa-codepen", "fa-react", "fa-java", "fa-js-square", "fa-swift", "fa-node-js", "fa-bootstrap", "fa-fedora", "fa-android", "fa-rust"];
 
+    //VARIABLES THAT WILL BE CHANGED FOR DIFFICULTY ADJUSMENTS
     let boxesNumber; //Number of tiles on the memory Game Layout
     let time;
     //Arrays for saving the icons on the game
+    let tilesClass; //Class that will be used on the memory game layout to know how many boxes it will have and how are they going to be distributed, the classes will be on the CSS File
+
     let guessedIcons = [];//Within the game
 
-    let savedDifficulty;//difficulty saved after playing the game one time
     let win = false;
     let pause = false;
-
     let previousTile; //Previous tile selected
-    let tilesClass; //Class that will be used on the memory game layout to know how many boxes it will have and how are they going to be distributed, the classes will be on the CSS File
 
     let username;
     //Stats of wins and losses
@@ -55,11 +50,12 @@ window.addEventListener("load", () => {
     let minutes;
     let seconds;
 
+
     /**
      * EVENT LISTENERS
      * 
      */
-    playAgainButton.onclick = function gameAgain(e) { //this function will be used to re play after the first game
+    document.getElementById("playAgain").onclick = function gameAgain(e) { //this function will be used to re play after the first game
 
         //removing the first game space
         let memoryGame = document.getElementById("memoryGame");
@@ -69,7 +65,7 @@ window.addEventListener("load", () => {
         cronometerContainer.remove();
         extraInfo.remove();
 
-        gettingReady(newDifficultyInput.value);
+        gettingReady(document.getElementById("afterGameSubmit").value);
 
     };
 
@@ -77,17 +73,16 @@ window.addEventListener("load", () => {
     initialForm.addEventListener("submit", (e) => {
 
         username = document.getElementById("username").value;
-        
+
         //Styles for hiding tags
         descriptions[0].style.display = "none";
         descriptions[1].classList.replace("d-flex", "d-none");
         initialForm.style.display = "none";
-        usernameRequirementsP.classList.add("d-none");
 
         gettingReady(firstDifficultyInput.value); //then inside it executes the game function
 
         e.preventDefault();//This line is used for avoiding errors on the eventlistener
-        
+
     });
 
     //Continue timing the game after clicking close on the how to play modal
@@ -118,6 +113,8 @@ window.addEventListener("load", () => {
      * Little text display so the user can prepare for the game.
      * 
      */
+    let savedDifficulty;//difficulty saved after playing the game one time
+
     function gettingReady(difficulty) {
         //Creating the element and assigning classes for proper styling
         let bigText = document.createElement("p");
@@ -132,27 +129,26 @@ window.addEventListener("load", () => {
             //INDEX 0: Number of boxes
             //INDEX 1: second
             //INDEX 2: Tile Class
-            "easy":[16,60,"easyTiles"] ,
-            "medium":[24,75,"mediumTiles"] ,
-            "hard":[36,90,"hardTiles"]
+            "easy": [16, 60, "easyTiles"],
+            "medium": [24, 75, "mediumTiles"],
+            "hard": [36, 90, "hardTiles"]
         }
-
         boxesNumber = difficultySettings[difficulty][0];
         time = difficultySettings[difficulty][1];
         tilesClass = difficultySettings[difficulty][2];
         savedDifficulty = difficulty;
 
-        
+
 
 
         let secondsPreGame = 3;
 
         let preGame = setInterval(() => {
-            
-            bigText.innerText = secondsPreGame > 0 
+
+            bigText.innerText = secondsPreGame > 0
                 ? `The game will start on ${secondsPreGame}`
                 : 'GO!';
-            
+
             if (secondsPreGame == -1) {
                 view.classList.remove("gettingReadyText");
                 bigText.remove();
@@ -174,23 +170,23 @@ window.addEventListener("load", () => {
         view.appendChild(memoryGame);
         memoryGame.setAttribute("id", "memoryGame");
 
-   
+
         //Styles of the Memory Box Grid
-        memoryGame.classList.add("memoryGame",tilesClass);
+        memoryGame.classList.add("memoryGame", tilesClass);
 
         //Randomizing logos' positioning
         let logos = boxesNumber / 2;
-        halfTiles = Array.apply(null,{length: logos}).map(Number.call, Number);
-        
-        
+        halfTiles = Array.apply(null, { length: logos }).map(Number.call, Number);
+
+
         let iconsOnGame = halfTiles.concat(halfTiles); //array of numbers representing the icons
-        
+
         //Algoritm for shuffling the array of icons
-        for (let i = iconsOnGame.length - 1; i > 0; i--){
-                let j = Math.floor(Math.random() * (i+1));
-                [iconsOnGame[j],iconsOnGame[i]] = [iconsOnGame[i],iconsOnGame[j]];
+        for (let i = iconsOnGame.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [iconsOnGame[j], iconsOnGame[i]] = [iconsOnGame[i], iconsOnGame[j]];
         }
-                
+
 
         //Creating Tiles
         for (let a = 0; a < boxesNumber; a++) {
@@ -200,7 +196,7 @@ window.addEventListener("load", () => {
 
             //Creating the logos behind each block
             let figure = document.createElement("i")
-            figure.classList.add("logos","fa","fa-brands");
+            figure.classList.add("logos", "fa", "fa-brands");
             figure.style.display = "none";
 
             //Code to add the hidden logo to the game
@@ -218,7 +214,7 @@ window.addEventListener("load", () => {
         view.append(extraInfoContainer);
         let extraInfo = document.createElement("article");
         extraInfo.setAttribute("id", "extraInfo");
-        extraInfo.classList.add("d-flex","order-2");//Styles for bootstrap
+        extraInfo.classList.add("d-flex", "order-2");//Styles for bootstrap
 
         //Creating the modal button, assigning it no styles
         let helpButton = document.createElement("button")
@@ -227,7 +223,7 @@ window.addEventListener("load", () => {
 
         //Creating the <i> tag and assigning the classes so it's a help button
         let helpIcon = document.createElement("i");
-        helpIcon.classList.add("fa-solid","fa-circle-question");
+        helpIcon.classList.add("fa-solid", "fa-circle-question");
         helpIcon.style = "color: white; margin-top:0";
 
         //Creating the user part of the extra information section
@@ -237,14 +233,14 @@ window.addEventListener("load", () => {
 
         //Appending Process
         helpButton.append(helpIcon);
-        extraInfo.append(userText,helpButton);
+        extraInfo.append(userText, helpButton);
 
         //Positioning the extraInfo within the extraInfo Container
         extraInfoContainer.append(extraInfo);
         extraInfo.style.gridColumn = "0 span 1";
 
         //Event Listener for the help Button
-        helpButton.onclick = ()=>{
+        helpButton.onclick = () => {
             howToModalB.show();
             pause = true; //this will make the timer stops when clicking the help button
         }
@@ -267,7 +263,7 @@ window.addEventListener("load", () => {
         pause = false;
         guessedIcons = [];
 
-     
+
         extraInformation();
         creatingCronometer();
         buildTiles();
@@ -275,8 +271,8 @@ window.addEventListener("load", () => {
 
         //Adding the events to the tiles,this is the game itself
         let tiles = document.querySelectorAll(".tiles");
-        for (let a = 0; a < tiles.length; a++) tiles[a].onclick = (e) => whenClick(e,tiles);
-        
+        for (let a = 0; a < tiles.length; a++) tiles[a].onclick = (e) => whenClick(e, tiles);
+
     }
 
     /**
@@ -291,16 +287,16 @@ window.addEventListener("load", () => {
 
         cronometerContainer.setAttribute("id", "cronometer")
         cronometerContainer.classList.add("time");
-        
-        cronometer.innerText = seconds < 10 
-                            ? `Time: ${minutes}:0${seconds}`
-                            : `Time ${minutes}:${seconds}`;
+
+        cronometer.innerText = seconds < 10
+            ? `Time: ${minutes}:0${seconds}`
+            : `Time ${minutes}:${seconds}`;
 
 
         cronometerContainer.append(cronometer);
         extraInfoContainer.append(cronometerContainer);
         cronometerContainer.style.gridColumn = "0/1";
-        
+
         counting = setInterval(timing, 1000);//establish the interval for the timing
 
     }
@@ -314,25 +310,25 @@ window.addEventListener("load", () => {
         if (win || pause) {
             clearInterval(counting);
         }
-        
+
         if (seconds < 0) return;
-        
+
         if (seconds == 0 && minutes > 0) {
             seconds = 59;
             minutes -= 1;
         }
         else if (seconds == 0 && minutes == 0) {
             clearInterval(counting);
-            if (!win) lose();
+            endGame();
 
         }
-        
-        
+
+
         cronometer.innerText = seconds < 10
-                            ? `Time ${minutes}:0${seconds}`
-                            : `Time ${minutes}:${seconds}`;
-        
-    
+            ? `Time ${minutes}:0${seconds}`
+            : `Time ${minutes}:${seconds}`;
+
+
         seconds -= 1;
 
 
@@ -353,14 +349,14 @@ window.addEventListener("load", () => {
         if (previousTile != undefined && (e.target.parentNode == previousTile.target || e.target == previousTile.target || e.target.parentNode.parentNode == previousTile.target)) {
             return;
         }
-        
+
         e.target.firstChild.style.display = "block";
         matchLogos(e, previousTile, tileNodeList);
-        
+
         previousTile = (previousTile == undefined)
-                    ? e
-                    : undefined;
-        
+            ? e
+            : undefined;
+
     }
 
 
@@ -370,78 +366,60 @@ window.addEventListener("load", () => {
      */
     function matchLogos(currentClick, previousClick, tileNodeList) {
         if (previousClick == undefined) return
-        
-        
+
+
         //Conditional for both current and previous Click targets are similar
-        if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value 
+        if (previousClick.target.firstChild.classList.value == currentClick.target.firstChild.classList.value
             && previousClick.target.firstChild.classList != currentClick.target.firstChild.classList) {
-            
+
             currentClick.target.firstChild.style.display = "block";
             guessedIcons.push(previousClick.target, currentClick.target);
-            
-            previousClick.target.classList.add("matched","goodMatch-Animation");
-            currentClick.target.classList.add("matched","goodMatch-Animation");
+
+            previousClick.target.classList.add("matched", "goodMatch-Animation");
+            currentClick.target.classList.add("matched", "goodMatch-Animation");
 
             //To know if you won
-            if (guessedIcons.length == tileNodeList.length) victory();
+            if (guessedIcons.length == tileNodeList.length) {
+
+                win = true;
+                endGame();
+            }
 
             return;
         }
         //Conditional when the previous and current click targets are not similar logos
-        
+
         document.getElementById("memoryGame").classList.add("unclickeable");
-        
+
         previousClick.target.classList.add("wrongMatch-Animation");
         currentClick.target.classList.add("wrongMatch-Animation");
-        
+
         setTimeout(() => {
             document.getElementById("memoryGame").classList.remove("unclickeable");
 
             previousClick.target.firstChild.style.display = "none";
             currentClick.target.firstChild.style.display = "none";
-            
+
             previousClick.target.classList.remove("wrongMatch-Animation");
             currentClick.target.classList.remove("wrongMatch-Animation");
         }, 500);
 
     }
 
-
-    //FUNCTIONS FOR STATES IN THE GAME
-
     /**
-     * Updates the losses stats and showing the user when he/she lost by using modals
+     * Updates the winnings and losses stats and showing the user when he/she won/lost by using modals
      * 
      */
-    function lose() {
-        losses += 1;
-        textAfterGame.innerHTML = `Game Over ${username}!<br>You lost`;
 
-        winsInfo.innerText = `Wins: ${wins}`;
-        lossesInfo.innerText = `Losses: ${losses}`;
+    function endGame() {
+        textAfterGame.innerHTML = (win == true)
+            ? `Congratulations ${username}!<br> You won!`
+            : `Game Over ${username}!<br>You lost`;
+        if (win) wins++
+        else losses++
 
+        document.getElementById("stats").innerHTML = `Wins: ${wins}<br>Losses: ${losses}`;
         afterGameModal.show();
 
     }
-
-    /**
-     * Updates the wins stats and shows the user when he/she won by using modals
-     * 
-     */
-    function victory() {
-        win = true;
-        wins += 1;
-        textAfterGame.innerHTML = `Congratulations ${username}!<br>You won!`;
-
-        winsInfo.innerText = `Wins: ${wins}`;
-        lossesInfo.innerText = `Losses: ${losses}`;
-
-        afterGameModal.show();
-
-
-
-    }
-
-
-
 })
