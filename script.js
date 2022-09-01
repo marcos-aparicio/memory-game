@@ -371,12 +371,9 @@ window.addEventListener("load", () => {
         e.target.firstChild.style.display = "block";
         matchLogos(e, previousTile, tileNodeList);
         
-        if (previousTile == undefined) {
-            previousTile = e;
-            return;
-        }
-        
-        previousTile = undefined;
+        previousTile = previousTile == undefined
+                    ? e
+                    : undefined;
         
     }
 
