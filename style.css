@@ -53,6 +53,8 @@ body {
 .view {
     padding: 0 250px;
     min-height: 74vh;
+    display:flex;
+    flex-direction:column;
 }
 
 .web-description {
@@ -153,12 +155,12 @@ body {
     align-content: center;
     justify-content: center;
     grid-gap: 10px;
-    margin-top:20%;
 }
 .memoryGameContainer{
     display:flex;
     justify-content: center;
     align-items: center;
+    flex-grow:1;
 }
 /* Style of each icon on each tile */
 .logos {

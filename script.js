@@ -129,7 +129,7 @@ window.addEventListener("load", () => {
             //INDEX 0: Number of boxes
             //INDEX 1: second
             //INDEX 2: Tile Class
-            "easy": [16, 60, "easyTiles"],
+            "easy": [16, 1200000, "easyTiles"],
             "medium": [24, 75, "mediumTiles"],
             "hard": [36, 90, "hardTiles"]
         }
