@@ -307,7 +307,15 @@ body {
         background: rgba(63, 255, 105, 1);
     }
 }
-
+@keyframes tileAnimation{
+    0% {
+        transform:scaleX(1);
+    }
+    100%{
+        transform:scaleX(-1);
+        color:white;
+    }
+}
 /* Styles for the memory game's dimensions and layout depending on the difficulty */
 .easyTiles {
     grid-template-rows: repeat(4, 80px);
