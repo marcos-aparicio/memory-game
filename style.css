@@ -166,12 +166,14 @@ body {
 .logos {
     font-size: 35px;
     margin: auto;
+    color:black;
 }
 
 /* Styles for each tile of the memory game */
 .tiles {
     border-radius: 15px;
     background-color: white;
+    color:white;
     display: flex;
     cursor: pointer;
 }
@@ -276,17 +278,41 @@ body {
 /* ANIMATIONS: KEYFRAMES AND ANIMATION CLASSES */
 .wrongMatch-Animation {
     animation-name: wrongMatch;
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(.52, .6, .54, .64);
+    animation-duration: 1.25s;
+    animation-timing-function: linear;
+    animation-direction:alternate;
 }
+
+/* .wrongMatch-Animation {
+    animation-name: wrongMatch;
+    animation-duration: 0.6s;
+    animation-direction:alternate;
+    animation-timing-function: cubic-bezier(.52, .6, .54, .64);
+} */
 
 .goodMatch-Animation {
     animation-name: goodMatch;
-    animation-duration: 0.5s;
+    animation-duration: 0.6s;
     animation-timing-function: cubic-bezier(.52, .6, .54, .64);
 }
 
 @keyframes wrongMatch {
+    0% {
+        transform: scale(1)
+    }
+
+    50%{
+        transform: scale(1.1);
+        background-color: red;
+    }
+
+    100%{
+        transform:scale(1);
+        background-color: white;
+    }
+}
+
+/* @keyframes wrongMatch {
     from {
         transform: scale(1)
     }
@@ -295,7 +321,7 @@ body {
         transform: scale(1.1);
         background-color: red;
     }
-}
+} */
 
 @keyframes goodMatch {
     0% {
@@ -309,13 +335,38 @@ body {
 }
 @keyframes tileAnimation{
     0% {
-        transform:scaleX(1);
+        transform:scaleX(-1);
+        color:transparent;
     }
     100%{
-        transform:scaleX(-1);
-        color:white;
+        transform:scaleX(1);
     }
 }
+@keyframes tileExitAnimation{
+    0% {
+        display:none;
+        color:transparent;
+        transform:scaleX(-1);
+    }
+    100%{
+        transform:scaleX(1);
+    }
+}
+.tileEntryAnimation{
+    animation-name:tileAnimation;
+    animation-duration:500ms;
+    animation-fill-mode: forwards;
+}
+.tileExitAnimation{
+    animation-name:tileAnimation;
+    animation-duration:500ms;
+    animation-direction: reverse;
+    animation-fill-mode: backwards;
+}
+
+
+
+
 /* Styles for the memory game's dimensions and layout depending on the difficulty */
 .easyTiles {
     grid-template-rows: repeat(4, 80px);

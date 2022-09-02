@@ -131,7 +131,7 @@ window.addEventListener("load", () => {
             //INDEX 2: Tile Class
             "easy": [16, 1200000, "easyTiles"],
             "medium": [24, 75, "mediumTiles"],
-            "hard": [36, 90, "hardTiles"]
+            "hard": [36, 105, "hardTiles"]
         }
 
         boxesNumber = difficultySettings[difficulty][0];
@@ -356,7 +356,7 @@ window.addEventListener("load", () => {
             return;
         }
 
-        e.target.firstChild.style.display = "block";
+        e.target.firstChild.style = "display:block;color:black;animation-name:tileAnimation;animation-duration:500ms;animation-fill-mode: forwards";//animation
         matchLogos(e, previousTile, tileNodeList);
 
         previousTile = (previousTile == undefined)
@@ -399,16 +399,21 @@ window.addEventListener("load", () => {
 
         previousClick.target.classList.add("wrongMatch-Animation");
         currentClick.target.classList.add("wrongMatch-Animation");
+        
+        setTimeout(()=>{
+            previousClick.target.firstChild.style = "animation-name:tileExitAnimation;animation-direction: reverse;animation-fill-mode: backwards;animation-duration:200ms;animation-timing-function:linear";
+            currentClick.target.firstChild.style = "animation-name:tileExitAnimation;animation-direction: reverse;animation-fill-mode: backwards;animation-duration:200ms;animation-timing-function:linear";
+            setTimeout(() => {
+                document.getElementById("memoryGame").classList.remove("unclickeable");
+                previousClick.target.firstChild.style.display = "none"
+                currentClick.target.firstChild.style.display = "none"
+    
+                previousClick.target.classList.remove("wrongMatch-Animation");
+                currentClick.target.classList.remove("wrongMatch-Animation");
+            }, 200);
+            
+        },700)
 
-        setTimeout(() => {
-            document.getElementById("memoryGame").classList.remove("unclickeable");
-
-            previousClick.target.firstChild.style.display = "none";
-            currentClick.target.firstChild.style.display = "none";
-
-            previousClick.target.classList.remove("wrongMatch-Animation");
-            currentClick.target.classList.remove("wrongMatch-Animation");
-        }, 500);
 
     }
 
