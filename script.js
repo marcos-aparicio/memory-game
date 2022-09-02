@@ -133,6 +133,7 @@ window.addEventListener("load", () => {
             "medium": [24, 75, "mediumTiles"],
             "hard": [36, 90, "hardTiles"]
         }
+
         boxesNumber = difficultySettings[difficulty][0];
         time = difficultySettings[difficulty][1];
         tilesClass = difficultySettings[difficulty][2];
@@ -165,9 +166,14 @@ window.addEventListener("load", () => {
      */
     function buildTiles() {
 
+        //Creating the memory game's container
+        let memoryGameContainer = document.createElement("section");
+        view.appendChild(memoryGameContainer)
+        memoryGameContainer.classList.add("memoryGameContainer");   
+
         //Creating and placing the tag into the HTML document
-        let memoryGame = document.createElement("section")
-        view.appendChild(memoryGame);
+        let memoryGame = document.createElement("div")
+        memoryGameContainer.appendChild(memoryGame);
         memoryGame.setAttribute("id", "memoryGame");
 
 

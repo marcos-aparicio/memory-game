@@ -85,9 +85,9 @@ body {
     background: none;
     color: white;
     border: white 3px solid;
-    border-radius: 3px;
+    border-radius: 10px;
     margin: 20px 0;
-    padding: 5px;
+    padding: 10px;
 }
 
 /* Styles for the select the game difficulty */
@@ -108,9 +108,14 @@ body {
 
 /* Styles for the submit tag itself */
 .submit {
+    height:100%;
+    width:100%;
+    border-radius:inherit;
+    
     padding: 15px;
     font-size: 3.1rem;
     font-weight: bold;
+    
     /* Styles for creating a linear gradient color on the text */
     /*For this color of text I used a generator*/
     /*Source: https://textgradients.com/*/
@@ -148,8 +153,13 @@ body {
     align-content: center;
     justify-content: center;
     grid-gap: 10px;
+    margin-top:20%;
 }
-
+.memoryGameContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
 /* Style of each icon on each tile */
 .logos {
     font-size: 35px;
@@ -191,7 +201,9 @@ body {
     font-size: 2.5rem;
 
 }
-
+#extraInfo{
+    justify-self: right;
+}
 
 /* Modals styles */
 .modal-howTo h3, .modal-afterGame h3 {
