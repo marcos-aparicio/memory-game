@@ -55,15 +55,18 @@ window.addEventListener("load", () => {
      * EVENT LISTENERS
      * 
      */
-    document.getElementById("playAgain").onclick = function gameAgain(e) { //this function will be used to re play after the first game
+    document.getElementById("playAgain").onclick = function gameAgain() { //this function will be used to re play after the first game
 
         //removing the first game space
         let memoryGame = document.getElementById("memoryGame");
+        let memoryGameContainer = document.querySelector(".memoryGameContainer");
         let cronometerContainer = document.getElementById("cronometer");
         let extraInfo = document.getElementById("extraInfo");
         memoryGame.remove();
+        memoryGameContainer.remove();
         cronometerContainer.remove();
         extraInfo.remove();
+        afterGameModal.hide();
 
         gettingReady(document.getElementById("afterGameSubmit").value);
 
@@ -129,7 +132,7 @@ window.addEventListener("load", () => {
             //INDEX 0: Number of boxes
             //INDEX 1: second
             //INDEX 2: Tile Class
-            "easy": [16, 1200000, "easyTiles"],
+            "easy": [16,60, "easyTiles"],
             "medium": [24, 75, "mediumTiles"],
             "hard": [36, 105, "hardTiles"]
         }

@@ -203,6 +203,7 @@ body {
     grid-template-rows: 50px;
     color: white;
     font-size: 2.5rem;
+    user-select: none;
 
 }
 #extraInfo{
@@ -210,8 +211,22 @@ body {
 }
 
 /* Modals styles */
+.modalHowTo{
+    border-radius:15px;
+    padding:10px 20px;
+}
+.howTo-header{
+    display:flex;
+    justify-content: end;
+}
+.howTo-header-button{
+    
+    font-size:35px;
+    color:#ff4500;
+}
+
 .modal-howTo h3, .modal-afterGame h3 {
-    font-size: 3.1rem;
+    font-size: 3.8rem;
 }
 
 .modal-howTo p, .modal-afterGame p {
@@ -224,24 +239,12 @@ body {
     font-weight: 300;
 }
 
-.modal-howTo-button {
-    border: none;
-    padding: 10px 30px;
-    font-size: 2.1rem;
-    border-radius: 15px;
-    font-weight: 500;
-    color: white;
-    /* I use a background generator for this styles */
-    /* Source: https://cssgradient.io/ */
-    background: rgb(153, 50, 204);
-    background: linear-gradient(90deg, rgba(153, 50, 204, 1) 0%, rgba(255, 0, 0, 1) 100%);
-}
-
 .modal-howTo article, .modal-afterGame article {
+    padding-top:20px;
     background: white;
 }
 
-.modal-howTo p, .modal-howTo h3, .modal-afterGame p, .modal-afterGame h3 {
+.modal-howTo p, .modal-howTo h3, .modal-afterGame p, .modal-afterGame h3, .modal-afterGame label{
     /*For this color of text I used a generator*/
     /*Source: https://textgradients.com/*/
     background: #ff0000;
@@ -271,6 +274,23 @@ body {
     padding: 0 20px;
     border: none;
     outline: none;
+}
+.modal-afterGame-container{
+    border-radius:15px;
+    padding:20px;
+}
+.modal-afterGame label{
+    font-size: 2.5rem;
+    font-weight:500;
+    
+}
+#afterGameSubmit{
+    padding:10px;
+    border-radius:10px;
+}
+.afterGameForm{
+    display:flex;
+    flex-direction: column;
 }
 
 

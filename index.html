@@ -35,23 +35,22 @@
             <!-- After Game Modal -->
             <div class="modal fade" id="afterGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="afterGame" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-centered">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content modal-afterGame-container">
                         <div class="modal-body modal-afterGame">
                             <article>
                                 <h3 id="textAfterGame" class="text-center"></h3>
                                 <hr>
-                                <p id="stats">Wins: <br> Losses: </p>
-                                <p class="aclaration">(The difficulty you chose before is chosen by Default, click play
-                                    without selecting difficulty to not change the difficult)</p>
-                                <select name="difficulty" id="afterGameSubmit" required class="d-block mx-auto my-2">
-                                    <option value="" hidden>
-                                        Select a difficulty:
-                                    </option>
-                                    <option value="easy">Easy Mode 4x4 Grid 1 minute</option>
-                                    <option value="medium">Medium Mode 6x4 Grid 1:15 minutes</option>
-                                    <option value="hard">Hard Mode 6x6 Grid 1:45 minutes</option>
-                                </select>
+                                <p id="stats" class = "text-center">Wins: <br> Losses: </p>
+                                <hr>
+                                <form class = "afterGameForm">
+                                    <label for="afterGameSubmit">Select difficulty</label>
+                                    <select name="difficulty" id="afterGameSubmit" required class="d-block">
+                                        <option value="easy">Easy Mode 4x4 Grid 1 minute</option>
+                                        <option value="medium">Medium Mode 6x4 Grid 1:15 minutes</option>
+                                        <option value="hard">Hard Mode 6x6 Grid 1:45 minutes</option>
+                                    </select>
+                                </form>
                             </article>
                             <button class="btn btn-secondary d-flex mx-auto mt-5" data-bs-dismiss="modal"
                                 id="playAgain">Play Again</button>
@@ -63,27 +62,21 @@
             <div class="modal fade" id="howTo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="howTo" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button class="btn-close btn-lg" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content modalHowTo">
+                        <div class="howTo-header">
+                            <button data-bs-dismiss="modal" aria-label="Close" class = "howTo-header-button">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                         <div class="modal-body modal-howTo">
+                            <h3 class="text-center">How to play this game</h3>
                             <article>
-                                <h3 class="text-center">How to play this game</h3>
                                 <p>
                                     Match each tile with its correspondent logo, if they are equal they will both
                                     reveal, if not they'll just hide again. Reveal all the tiles before time's up or you
                                     will lose.
                                 </p>
                             </article>
-                            <figure class="d-flex mx-auto justify-content-around">
-                                <img src="./images/wrongTile.jpeg" alt="Tutorial for the game">
-                                <img src="./images/goodTile.jpeg" alt="Tutorial for the game">
-                            </figure>
-                            <div class="modal-howTo-btn-container">
-                                <button class="btn btn-secondary d-flex mx-auto modal-howTo-button"
-                                    data-bs-dismiss="modal" id="close">Close</button>
-                            </div>
                         </div>
                     </div>
                 </div>
