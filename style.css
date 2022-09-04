@@ -268,10 +268,10 @@ body {
     background: rgb(153, 50, 204);
     background: linear-gradient(90deg, rgba(153, 50, 204, 1) 0%, rgba(255, 0, 0, 1) 100%);
     color: white;
-    font-size: 2.1rem;
+    font-size: 3rem;
     font-weight: 500;
-    border-radius: 5px;
-    padding: 0 20px;
+    border-radius: 15px;
+    padding: 10px 20px;
     border: none;
     outline: none;
 }
@@ -534,13 +534,12 @@ body {
     }
 
     #usernameRequirementsP {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
 
     .modal-afterGame button, .modal-afterGame select {
         font-size: 1.6rem;
     }
-
     .easyTiles {
         grid-template-rows: repeat(4, 65px);
         ;

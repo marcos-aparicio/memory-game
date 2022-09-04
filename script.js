@@ -83,7 +83,7 @@ window.addEventListener("load", () => {
         initialForm.style.display = "none";
 
         gettingReady(firstDifficultyInput.value); //then inside it executes the game function
-
+        document.getElementById("afterGameSubmit").value = firstDifficultyInput.value; //Asigning the difficulty the user chose to the other form after finishing the game
         e.preventDefault();//This line is used for avoiding errors on the eventlistener
 
     });
@@ -116,7 +116,6 @@ window.addEventListener("load", () => {
      * Little text display so the user can prepare for the game.
      * 
      */
-    let savedDifficulty;//difficulty saved after playing the game one time
 
     function gettingReady(difficulty) {
         //Creating the element and assigning classes for proper styling
@@ -124,10 +123,7 @@ window.addEventListener("load", () => {
         view.classList.add("gettingReadyText");
         view.append(bigText);//Adding the element to the page
 
-        //Asigning difficult adjustments
-        if (difficulty == "") {
-            difficulty = savedDifficulty;
-        }
+
         let difficultySettings = {
             //INDEX 0: Number of boxes
             //INDEX 1: second
@@ -140,8 +136,6 @@ window.addEventListener("load", () => {
         boxesNumber = difficultySettings[difficulty][0];
         time = difficultySettings[difficulty][1];
         tilesClass = difficultySettings[difficulty][2];
-        savedDifficulty = difficulty;
-
 
 
 
