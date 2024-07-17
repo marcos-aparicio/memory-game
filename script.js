@@ -152,7 +152,7 @@ window.addEventListener("load", () => {
                 bigText.remove();
                 clearInterval(preGame);
 
-                game(e); // all the game is here
+                game(); // all the game is here
             }
             secondsPreGame -= 1;
         }, 1000);
